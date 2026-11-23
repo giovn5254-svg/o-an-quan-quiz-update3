@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ô Ăn Quan Quiz</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">🏮 Ô ĂN QUAN</div>
+      <div class="tag">QUIZ VĂN HÓA VIỆT</div>
+    </header>
+
+    <main id="welcome" class="screen">
+      <section class="welcome-card">
+        <div class="big-icon">🏮</div>
+        <p class="eyebrow">TRÒ CHƠI KIẾN THỨC</p>
+        <h1>Ô ĂN QUAN</h1>
+        <p>Khám phá những nét đẹp văn hóa Việt Nam</p>
+
+        <div class="info">
+          <p>🟤 10 ô nhỏ: <b>8 điểm/câu</b></p>
+          <p>🔴 2 ô quan: <b>20 điểm/câu</b></p>
+          <p>🏆 Tổng điểm: <b>120 điểm</b></p>
+        </div>
+
+        <input
+          id="playerName"
+          placeholder="Nhập tên người chơi..."
+          maxlength="35"
+        />
+        <button id="startBtn" class="main-btn">🎮 VÀO CHƠI</button>
+        <p class="note">Hoàn thành đủ 12 câu hỏi để nhận kết quả.</p>
+      </section>
+    </main>
+
+    <main id="game" class="screen hidden">
+      <section class="heading">
+        <p class="eyebrow">THỬ THÁCH KIẾN THỨC</p>
+        <h1>Ô ĂN QUAN</h1>
+        <p>Chọn một ô bất kỳ để bắt đầu rải quân!</p>
+      </section>
+
+      <section class="scoreboard">
+        <div><span>⭐ ĐIỂM</span><b id="score">0</b></div>
+        <div><span>📝 ĐÃ CHƠI</span><b id="progress">0/12</b></div>
+        <div><span>🏆 TỐI ĐA</span><b>120</b></div>
+      </section>
+
+      <section class="board-wrap">
+        <div class="board">
+          <button class="pit quan" data-pit="10">
+            <span class="pit-icon">🔴</span>
+            <b>QUAN 1</b>
+            <small>20 điểm</small>
+            <strong class="stones">0 quân</strong>
+          </button>
+
+          <div class="small-pits">
+            <button class="pit small" data-pit="0">
+              <span class="pit-icon">🟤</span><b>Ô 1</b><small>8 điểm</small
+              ><strong class="stones">5 quân</strong>
+            </button>
+            <button class="pit small" data-pit="1">
+              <span class="pit-icon">🟤</span><b>Ô 2</b><small>8 điểm</small
+              ><strong class="stones">5 quân</strong>
+            </button>
+            <button class="pit small" data-pit="2">
+              <span class="pit-icon">🟤</span><b>Ô 3</b><small>8 điểm</small
+              ><strong class="stones">5 quân</strong>
+            </button>
+            <button class="pit small" data-pit="3">
+              <span class="pit-icon">🟤</span><b>Ô 4</b><small>8 điểm</small
+              ><strong class="stones">5 quân</strong>
+            </button>
+            <button class="pit small" data-pit="4">
+              <span class="pit-icon">🟤</span><b>Ô 5</b><small>8 điểm</small
+              ><strong class="stones">5 quân</strong>
+            </button>
+            <button class="pit small" data-pit="5">
+              <span class="pit-icon">🟤</span><b>Ô 6</b><small>8 điểm</small
+              ><strong class="stones">5 quân</strong>
+            </button>
+            <button class="pit small" data-pit="6">
+              <span class="pit-icon">🟤</span><b>Ô 7</b><small>8 điểm</small
+              ><strong class="stones">5 quân</strong>
+            </button>
+            <button class="pit small" data-pit="7">
+              <span class="pit-icon">🟤</span><b>Ô 8</b><small>8 điểm</small
+              ><strong class="stones">5 quân</strong>
+            </button>
+            <button class="pit small" data-pit="8">
+              <span class="pit-icon">🟤</span><b>Ô 9</b><small>8 điểm</small
+              ><strong class="stones">5 quân</strong>
+            </button>
+            <button class="pit small" data-pit="9">
+              <span class="pit-icon">🟤</span><b>Ô 10</b><small>8 điểm</small
+              ><strong class="stones">5 quân</strong>
+            </button>
+          </div>
+
+          <button class="pit quan" data-pit="11">
+            <span class="pit-icon">🔴</span>
+            <b>QUAN 2</b>
+            <small>20 điểm</small>
+            <strong class="stones">0 quân</strong>
+          </button>
+        </div>
+        <p class="board-hint">
+          ✨ Quân sẽ được rải lần lượt theo chiều ngược kim đồng hồ.
+        </p>
+        <p id="gameStatus" class="status">Mời bạn chọn một ô để bắt đầu!</p>
+      </section>
+
+      <section id="questionPanel" class="question-panel hidden">
+        <div class="question-top">
+          <span id="questionType"></span>
+          <b id="questionPoint"></b>
+        </div>
+        <h2 id="questionText"></h2>
+        <div id="answers" class="answers"></div>
+        <p id="feedback" class="feedback"></p>
+        <button id="continueBtn" class="main-btn hidden">TIẾP TỤC</button>
+      </section>
+    </main>
+
+    <main id="result" class="screen hidden">
+      <section class="result-card">
+        <div class="big-icon" id="resultIcon">🏆</div>
+        <p class="eyebrow">KẾT THÚC TRÒ CHƠI</p>
+        <h1 id="resultTitle">KẾT QUẢ</h1>
+        <p id="resultPlayer"></p>
+        <div class="final-score">
+          <b id="finalScore">0</b><span>/ 120 điểm</span>
+        </div>
+        <p id="resultMessage"></p>
+
+        <div id="certificateArea" class="hidden">
+          <div id="certificate" class="certificate">
+            <div class="certificate-inner">
+              <div class="cert-decoration">✦ 🏮 ✦</div>
+              <h2>GIẤY CHỨNG NHẬN</h2>
+              <h3>HOÀN THÀNH THỬ THÁCH Ô ĂN QUAN</h3>
+              <p>Trân trọng chứng nhận</p>
+              <h1 id="certificateName"></h1>
+              <p>Đã hoàn thành trò chơi tìm hiểu văn hóa Việt Nam</p>
+              <p>Với thành tích</p>
+              <h2 id="certificateScore"></h2>
+              <p class="cert-footer">CHÚC MỪNG BẠN!</p>
+              <div class="cert-decoration">✦ 🏮 ✦</div>
+            </div>
+          </div>
+          <button id="printBtn" class="main-btn">🖨️ IN GIẤY CHỨNG NHẬN</button>
+        </div>
+
+        <button id="restartBtn" class="main-btn">🔄 CHƠI LẠI</button>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
