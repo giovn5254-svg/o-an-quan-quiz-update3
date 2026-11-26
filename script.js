@@ -1,4 +1,3 @@
-
 // ==========================================
 // GAME O AN QUAN - 36 CAU HOI
 // VAN 1: CAU HOI SO 1 CUA MOI O
@@ -407,7 +406,7 @@ const pitData = [
 ];
 
 // ==========================================
-// TRANG THAI GAME
+// TRẠNG THÁI GAME
 // ==========================================
 
 let board = Array(10).fill(5).concat([0, 0]);
@@ -423,7 +422,7 @@ let hasAnswered = false;
 let audioContext = null;
 
 // ==========================================
-// LAY PHAN TU HTML
+// LẤY PHẦN TỬ HTML
 // ==========================================
 
 const welcome = document.getElementById("welcome");
@@ -439,7 +438,7 @@ const continueBtn = document.getElementById("continueBtn");
 const nextRoundBtn = document.getElementById("nextRoundBtn");
 
 // ==========================================
-// AM THANH
+// ÂM THANH
 // ==========================================
 
 function getAudio() {
@@ -534,7 +533,7 @@ function applause() {
 }
 
 // ==========================================
-// TIEN ICH
+// TIỆN ÍCH
 // ==========================================
 
 function wait(ms) {
@@ -584,14 +583,14 @@ function animatePit(index) {
 }
 
 // ==========================================
-// BAT DAU / RESET MOT VAN
+// BẮT ĐẦU / RESET MỘT VÁN
 // ==========================================
 
 function resetCurrentRound() {
   board = Array(10).fill(5).concat([0, 0]);
   completed = Array(12).fill(false);
 
-  // QUAN TRONG: reset diem khi bat dau van moi
+  // Reset điểm khi bắt đầu ván mới
   score = 0;
   answeredCount = 0;
 
@@ -617,7 +616,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
 
   roundNumber = 1;
 
-  // Luu diem tung van rieng biet
+  // Lưu điểm từng ván riêng biệt
   roundScores = [null, null, null];
 
   welcome.classList.add("hidden");
@@ -629,7 +628,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
 });
 
 // ==========================================
-// CHON O VA RAI QUAN
+// CHỌN Ô VÀ RẢI QUÂN
 // ==========================================
 
 document.querySelectorAll("[data-pit]").forEach(button => {
@@ -654,7 +653,7 @@ document.querySelectorAll("[data-pit]").forEach(button => {
 });
 
 // ==========================================
-// LUAT RAI QUAN A
+// LUẬT RẢI QUÂN A
 // ==========================================
 
 async function sowFrom(startIndex) {
@@ -674,7 +673,7 @@ async function sowFrom(startIndex) {
   animatePit(position);
   await wait(350);
 
-  // Rai het quan dang cam
+  // Rải hết quân đang cầm
   while (hand > 0 && safetyCounter < 500) {
     position = nextPit(position);
 
@@ -689,7 +688,7 @@ async function sowFrom(startIndex) {
     await wait(180);
   }
 
-  // Neu o tiep theo con quan thi nhat len va rai tiep
+  // Nếu ô tiếp theo còn quân thì nhấc lên và rải tiếp
   while (safetyCounter < 500) {
     const next = nextPit(position);
 
@@ -740,15 +739,15 @@ async function sowFrom(startIndex) {
 }
 
 // ==========================================
-// MO CAU HOI THEO SO VAN
+// MỞ CÂU HỎI THEO SỐ VÁN
 // ==========================================
 
 function openQuestion(index) {
   hasAnswered = false;
 
-  // VAN 1 = questions[0]
-  // VAN 2 = questions[1]
-  // VAN 3 = questions[2]
+  // VÁN 1 = questions[0]
+  // VÁN 2 = questions[1]
+  // VÁN 3 = questions[2]
   const questionIndex = roundNumber - 1;
 
   const pit = pitData[index];
@@ -768,16 +767,44 @@ function openQuestion(index) {
 
   continueBtn.classList.add("hidden");
 
-  question.answers.forEach((answer, answerIndex) => {
+  // Tạo bản sao đáp án kèm vị trí gốc
+  const shuffledAnswers = question.answers.map(
+    (answer, originalIndex) => ({
+      answer,
+      originalIndex
+    })
+  );
+
+  // Xáo trộn ngẫu nhiên 3 đáp án
+  for (let i = shuffledAnswers.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [shuffledAnswers[i], shuffledAnswers[j]] =
+      [shuffledAnswers[j], shuffledAnswers[i]];
+  }
+
+  // Xác định vị trí mới của đáp án đúng
+  const correctDisplayIndex = shuffledAnswers.findIndex(
+    item => item.originalIndex === question.correct
+  );
+
+  // Hiển thị đáp án đã xáo trộn
+  shuffledAnswers.forEach((item, displayIndex) => {
     const button = document.createElement("button");
 
     button.className = "answer-btn";
 
     button.textContent =
-      `${String.fromCharCode(65 + answerIndex)}. ${answer}`;
+      `${String.fromCharCode(65 + displayIndex)}. ${item.answer}`;
 
     button.addEventListener("click", () => {
-      chooseAnswer(answerIndex, question, points);
+      chooseAnswer(
+        item.originalIndex,
+        question,
+        points,
+        displayIndex,
+        correctDisplayIndex
+      );
     });
 
     answersBox.appendChild(button);
@@ -794,26 +821,35 @@ function openQuestion(index) {
 }
 
 // ==========================================
-// TRA LOI VA TINH DIEM
+// TRẢ LỜI VÀ TÍNH ĐIỂM
 // ==========================================
 
-function chooseAnswer(selectedIndex, question, points) {
+function chooseAnswer(
+  selectedOriginalIndex,
+  question,
+  points,
+  selectedDisplayIndex,
+  correctDisplayIndex
+) {
   if (hasAnswered) return;
 
   hasAnswered = true;
 
-  const isCorrect = selectedIndex === question.correct;
+  const isCorrect =
+    selectedOriginalIndex === question.correct;
 
   const buttons = document.querySelectorAll(".answer-btn");
 
   buttons.forEach((button, index) => {
     button.disabled = true;
 
-    if (index === question.correct) {
+    // Đánh dấu đáp án đúng theo vị trí đã xáo trộn
+    if (index === correctDisplayIndex) {
       button.classList.add("correct");
     }
 
-    if (index === selectedIndex && !isCorrect) {
+    // Đánh dấu đáp án người chơi chọn sai
+    if (index === selectedDisplayIndex && !isCorrect) {
       button.classList.add("wrong");
     }
   });
@@ -843,7 +879,7 @@ function chooseAnswer(selectedIndex, question, points) {
 }
 
 // ==========================================
-// TIEP TUC SAU KHI TRA LOI
+// TIẾP TỤC SAU KHI TRẢ LỜI
 // ==========================================
 
 continueBtn.addEventListener("click", () => {
@@ -855,7 +891,7 @@ continueBtn.addEventListener("click", () => {
   updateBoard();
 
   if (answeredCount === 12) {
-    // Luu diem cua rieng van hien tai
+    // Lưu điểm của riêng ván hiện tại
     roundScores[roundNumber - 1] = score;
 
     showRoundResult();
@@ -869,8 +905,8 @@ continueBtn.addEventListener("click", () => {
 });
 
 // ==========================================
-// HIEN LICH SU DIEM TUNG VAN
-// KHONG CONG DIEM CAC VAN
+// HIỆN LỊCH SỬ ĐIỂM TỪNG VÁN
+// KHÔNG CỘNG ĐIỂM CÁC VÁN
 // ==========================================
 
 function renderRoundHistory() {
@@ -911,7 +947,7 @@ function renderRoundHistory() {
 }
 
 // ==========================================
-// KET QUA RIENG CUA MOT VAN
+// KẾT QUẢ RIÊNG CỦA MỘT VÁN
 // ==========================================
 
 function showRoundResult() {
@@ -926,7 +962,7 @@ function showRoundResult() {
   document.getElementById("resultPlayer").textContent =
     `Người chơi: ${player}`;
 
-  // Chi hien diem cua van vua hoan thanh
+  // Chỉ hiển thị điểm của ván vừa hoàn thành
   document.getElementById("finalScore").textContent = score;
 
   const title = document.getElementById("resultTitle");
@@ -981,7 +1017,7 @@ function showRoundResult() {
 }
 
 // ==========================================
-// SANG VAN TIEP THEO
+// SANG VÁN TIẾP THEO
 // ==========================================
 
 nextRoundBtn.addEventListener("click", () => {
@@ -992,14 +1028,14 @@ nextRoundBtn.addEventListener("click", () => {
   result.classList.add("hidden");
   game.classList.remove("hidden");
 
-  // Reset bang va diem cho van moi
+  // Reset bảng và điểm cho ván mới
   resetCurrentRound();
 
   clickSound();
 });
 
 // ==========================================
-// IN GIAY CHUNG NHAN
+// IN GIẤY CHỨNG NHẬN
 // ==========================================
 
 document.getElementById("printBtn").addEventListener("click", () => {
@@ -1007,7 +1043,7 @@ document.getElementById("printBtn").addEventListener("click", () => {
 });
 
 // ==========================================
-// CHOI LAI TU DAU
+// CHƠI LẠI TỪ ĐẦU
 // ==========================================
 
 document.getElementById("restartBtn").addEventListener("click", () => {
