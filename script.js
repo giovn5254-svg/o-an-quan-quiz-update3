@@ -1,110 +1,434 @@
+
 // ==========================================
-// NGÂN HÀNG CÂU HỎI
+// GAME O AN QUAN - 36 CAU HOI
+// VAN 1: CAU HOI SO 1 CUA MOI O
+// VAN 2: CAU HOI SO 2 CUA MOI O
+// VAN 3: CAU HOI SO 3 CUA MOI O
+// DIEM MOI VAN DOC LAP, KHONG CONG DON
 // ==========================================
 
-const normalQuestions = [
+const pitData = [
   {
-    question: "Nghề trồng hoa kiểng nổi tiếng ở Sa Đéc thuộc tỉnh nào?",
-    answers: ["Đồng Tháp", "An Giang", "Cà Mau"],
-    correct: 0,
+    name: "Ô THƯỜNG 1 – ỨNG XỬ Ở TRƯỜNG HỌC",
+    isQuan: false,
+    questions: [
+      {
+        question: "Trong giờ ra chơi, em thấy một bạn mới chuyển trường ngồi một mình. Em nên làm gì?",
+        answers: [
+          "Chủ động chào hỏi, trò chuyện và giới thiệu bạn với các bạn khác.",
+          "Đứng nhìn vì nghĩ bạn phải tự làm quen.",
+          "Trêu bạn vì bạn ít nói."
+        ],
+        correct: 0
+      },
+      {
+        question: "Một bạn bị chế giễu vì phát âm chưa chuẩn khi thuyết trình. Em nên làm gì?",
+        answers: [
+          "Cười theo để hòa đồng.",
+          "Không hùa theo, động viên và góp ý riêng tế nhị nếu cần.",
+          "Quay video đăng lên nhóm lớp."
+        ],
+        correct: 1
+      },
+      {
+        question: "Em phát hiện bạn thân sử dụng tài liệu trong giờ kiểm tra. Cách xử lý phù hợp nhất?",
+        answers: [
+          "Che giấu vì là bạn thân.",
+          "Đăng sự việc lên mạng xã hội.",
+          "Khuyên bạn dừng lại, trung thực và trao đổi với giáo viên khi cần."
+        ],
+        correct: 2
+      }
+    ]
   },
   {
-    question: "Cầu Rồng nổi tiếng nằm ở thành phố nào?",
-    answers: ["Hà Nội", "Đà Nẵng", "Huế"],
-    correct: 1,
+    name: "Ô THƯỜNG 2 – ỨNG XỬ TRONG GIA ĐÌNH",
+    isQuan: false,
+    questions: [
+      {
+        question: "Người thân góp ý em sử dụng điện thoại quá nhiều trong bữa cơm. Em nên làm gì?",
+        answers: [
+          "Lắng nghe, trao đổi bình tĩnh và điều chỉnh thời gian sử dụng.",
+          "Bỏ ăn và lớn tiếng phản ứng.",
+          "Im lặng nhưng tiếp tục dùng điện thoại."
+        ],
+        correct: 0
+      },
+      {
+        question: "Em bất đồng với cha mẹ về việc chọn ngành học. Cách ứng xử phù hợp?",
+        answers: [
+          "Nói cha mẹ không hiểu gì về mình.",
+          "Trình bày nguyện vọng, lắng nghe và cùng tìm hiểu thông tin.",
+          "Nhờ người khác nói dối để cha mẹ đồng ý."
+        ],
+        correct: 1
+      },
+      {
+        question: "Em vô ý làm hỏng một vật dụng trong nhà. Em nên làm gì?",
+        answers: [
+          "Giấu đi.",
+          "Đổ lỗi cho người khác.",
+          "Thành thật nhận lỗi, xin lỗi và cùng gia đình khắc phục."
+        ],
+        correct: 2
+      }
+    ]
   },
   {
-    question: "Lễ Khao lề thế lính Hoàng Sa gắn liền với hoạt động nào?",
-    answers: [
-      "Tưởng nhớ những người lính làm nhiệm vụ bảo vệ chủ quyền biển đảo",
-      "Cầu mưa thuận gió hòa",
-      "Tưởng nhớ các vị vua triều Nguyễn",
-    ],
-    correct: 0,
+    name: "Ô THƯỜNG 3 – ỨNG XỬ NƠI CÔNG CỘNG",
+    isQuan: false,
+    questions: [
+      {
+        question: "Khi thấy một người chen hàng, em nên làm gì?",
+        answers: [
+          "Nhắc nhở lịch sự, đề nghị mọi người giữ trật tự.",
+          "Chen lên theo.",
+          "To tiếng, xúc phạm người đó."
+        ],
+        correct: 0
+      },
+      {
+        question: "Trên xe buýt, em thấy người lớn tuổi phải đứng. Em nên làm gì?",
+        answers: [
+          "Giả vờ ngủ.",
+          "Chủ động nhường ghế nếu điều kiện cho phép.",
+          "Quay video đăng mạng."
+        ],
+        correct: 1
+      },
+      {
+        question: "Sau khi ăn uống ở công viên, nhóm em còn nhiều rác. Em nên làm gì?",
+        answers: [
+          "Để rác cạnh ghế.",
+          "Giấu rác vào bụi cây.",
+          "Thu gom và bỏ rác đúng nơi quy định."
+        ],
+        correct: 2
+      }
+    ]
   },
   {
-    question: "Không gian văn hóa Cồng chiêng gắn liền với khu vực nào?",
-    answers: ["Đồng bằng sông Cửu Long", "Tây Nguyên", "Đồng bằng Bắc Bộ"],
-    correct: 1,
+    name: "Ô THƯỜNG 4 – ỨNG XỬ KHI THAM GIA LỄ HỘI",
+    isQuan: false,
+    questions: [
+      {
+        question: "Khi tham gia lễ hội đông người, em nên làm gì?",
+        answers: [
+          "Chen lấn để đến gần sân khấu.",
+          "Tuân thủ hướng dẫn, xếp hàng và giữ vệ sinh.",
+          "Vượt rào để chụp ảnh."
+        ],
+        correct: 1
+      },
+      {
+        question: "Em chưa hiểu ý nghĩa một nghi thức tại lễ hội. Em nên làm gì?",
+        answers: [
+          "Tìm hiểu từ người tổ chức hoặc nguồn đáng tin cậy, giữ thái độ tôn trọng.",
+          "Bình luận nghi thức đó lạc hậu.",
+          "Bắt chước nghi thức để gây cười."
+        ],
+        correct: 0
+      },
+      {
+        question: "Muốn quay video biểu diễn tại lễ hội, em nên làm gì?",
+        answers: [
+          "Đứng chắn lối đi.",
+          "Bật flash liên tục.",
+          "Quay ở vị trí được phép, không cản trở và tuân thủ quy định."
+        ],
+        correct: 2
+      }
+    ]
   },
   {
-    question: "Lễ hội Katê là lễ hội truyền thống của dân tộc nào?",
-    answers: ["Chăm", "Ê Đê", "S'tiêng"],
-    correct: 0,
+    name: "Ô THƯỜNG 5 – ỨNG XỬ KHI DU LỊCH, THAM QUAN",
+    isQuan: false,
+    questions: [
+      {
+        question: "Tại di tích có biển yêu cầu không chạm vào hiện vật. Em nên làm gì?",
+        answers: [
+          "Tuân thủ hướng dẫn, quan sát từ khoảng cách quy định.",
+          "Chạm thử để cảm nhận.",
+          "Dịch chuyển hiện vật để chụp ảnh."
+        ],
+        correct: 0
+      },
+      {
+        question: "Bạn định khắc tên lên thân cây trong khu du lịch. Em nên làm gì?",
+        answers: [
+          "Mặc kệ.",
+          "Ngăn bạn, giải thích tác hại và nhắc giữ gìn cảnh quan.",
+          "Cùng khắc tên."
+        ],
+        correct: 1
+      },
+      {
+        question: "Đến bản làng có quy định về trang phục và chụp ảnh, em nên làm gì?",
+        answers: [
+          "Tự ý chụp người dân.",
+          "Bỏ qua quy định.",
+          "Tìm hiểu, tôn trọng quy định và xin phép trước khi chụp."
+        ],
+        correct: 2
+      }
+    ]
   },
   {
-    question:
-      "Gốm Bàu Trúc là nghề thủ công truyền thống nổi tiếng của dân tộc nào?",
-    answers: ["Kinh", "Chăm", "Khmer"],
-    correct: 1,
+    name: "Ô THƯỜNG 6 – GIAO TIẾP VỚI NGƯỜI NƯỚC NGOÀI",
+    isQuan: false,
+    questions: [
+      {
+        question: "Du khách nước ngoài hỏi đường nhưng em không giỏi ngoại ngữ. Em nên làm gì?",
+        answers: [
+          "Dùng từ đơn giản, bản đồ hoặc công cụ dịch để hỗ trợ; nếu chưa rõ thì chỉ nơi có thể giúp.",
+          "Bịa đường đi.",
+          "Phớt lờ dù có thể hỗ trợ."
+        ],
+        correct: 0
+      },
+      {
+        question: "Người nước ngoài phát âm sai tên một địa danh Việt Nam. Em nên làm gì?",
+        answers: [
+          "Cười chê.",
+          "Nhẹ nhàng hướng dẫn cách phát âm đúng.",
+          "Bắt chước để trêu đùa."
+        ],
+        correct: 1
+      },
+      {
+        question: "Du khách hỏi về phong tục mà em chưa biết rõ. Em nên trả lời thế nào?",
+        answers: [
+          "Tự nghĩ câu trả lời.",
+          "Khẳng định thông tin nghe kể nhưng chưa kiểm chứng.",
+          "Thành thật nói chưa rõ và đề nghị cùng tìm nguồn đáng tin cậy."
+        ],
+        correct: 2
+      }
+    ]
   },
   {
-    question:
-      "Nhà dài truyền thống là nét kiến trúc đặc trưng của dân tộc nào?",
-    answers: ["Ê Đê", "Chăm", "Tày"],
-    correct: 0,
+    name: "Ô THƯỜNG 7 – ỨNG XỬ TRÊN KHÔNG GIAN MẠNG",
+    isQuan: false,
+    questions: [
+      {
+        question: "Em nhận bài đăng xúc phạm một cộng đồng văn hóa nhưng chưa rõ đúng sai. Em nên làm gì?",
+        answers: [
+          "Không chia sẻ; kiểm tra nguồn và báo cáo nội dung vi phạm nếu cần.",
+          "Chia sẻ ngay.",
+          "Bình luận xúc phạm lại."
+        ],
+        correct: 0
+      },
+      {
+        question: "Bạn đăng ảnh của em lên mạng khi chưa xin phép. Em nên làm gì?",
+        answers: [
+          "Công khai thông tin cá nhân của bạn để trả đũa.",
+          "Trao đổi riêng, đề nghị gỡ ảnh hoặc xin phép trước khi đăng.",
+          "Tạo tài khoản giả để công kích."
+        ],
+        correct: 1
+      },
+      {
+        question: "Trong nhóm chat có người miệt thị phong tục địa phương khác. Em nên làm gì?",
+        answers: [
+          "Thả biểu tượng cười.",
+          "Chuyển tiếp sang nhóm khác.",
+          "Góp ý tôn trọng, không lan truyền và báo quản trị viên nếu cần."
+        ],
+        correct: 2
+      }
+    ]
   },
   {
-    question:
-      "Nghề dệt thổ cẩm truyền thống của người S'tiêng tạo ra sản phẩm gì?",
-    answers: ["Đồ gốm", "Vải dệt hoa văn", "Đồ kim loại"],
-    correct: 1,
+    name: "Ô THƯỜNG 8 – GÌN GIỮ VÀ LAN TỎA DI SẢN",
+    isQuan: false,
+    questions: [
+      {
+        question: "Em thấy có người vẽ bậy lên tường di tích. Em nên làm gì?",
+        answers: [
+          "Nhắc nhở phù hợp và báo người quản lý di tích.",
+          "Vẽ thêm.",
+          "Chụp ảnh cổ vũ."
+        ],
+        correct: 0
+      },
+      {
+        question: "Em muốn giới thiệu dân ca địa phương trên mạng. Cách làm phù hợp?",
+        answers: [
+          "Đăng thông tin chưa kiểm chứng.",
+          "Tìm nguồn đáng tin cậy, ghi rõ xuất xứ và giới thiệu trân trọng.",
+          "Chỉnh sửa tùy ý rồi nói là bản gốc."
+        ],
+        correct: 1
+      },
+      {
+        question: "Bạn cho rằng nghề thủ công truyền thống không còn giá trị vì máy móc làm nhanh hơn. Em nên phản hồi?",
+        answers: [
+          "Chê bai ý kiến của bạn.",
+          "Nói mọi sản phẩm thủ công đều tốt hơn công nghiệp.",
+          "Giải thích giá trị kỹ thuật, tri thức, bản sắc và sinh kế cộng đồng của nghề truyền thống."
+        ],
+        correct: 2
+      }
+    ]
   },
   {
-    question: "Làng hoa Sa Đéc thường nhộn nhịp nhất vào thời điểm nào?",
-    answers: ["Dịp cuối năm, trước Tết", "Giữa mùa hè", "Sau Tết Trung thu"],
-    correct: 0,
+    name: "Ô THƯỜNG 9 – TRÁCH NHIỆM VĂN HÓA KHI THAM QUAN",
+    isQuan: false,
+    questions: [
+      {
+        question: "Du khách vô tình chạm vào hiện vật; nhóm học sinh quay video định đăng để chế giễu. Em xử lý thế nào?",
+        answers: [
+          "Nhắc du khách lịch sự về quy định; đề nghị nhóm không chế giễu, không phát tán video và báo người phụ trách nếu cần.",
+          "Đăng video để nhiều người biết.",
+          "Lớn tiếng chỉ trích du khách trước đám đông."
+        ],
+        correct: 0
+      },
+      {
+        question: "Trong buổi giao lưu, một bạn gọi phong tục dân tộc khác là 'kỳ lạ, lạc hậu'. Cách ứng xử phù hợp?",
+        answers: [
+          "Đồng tình cho xong chuyện.",
+          "Bình tĩnh đề nghị dùng ngôn ngữ tôn trọng; giải thích cần tìm hiểu phong tục trong bối cảnh lịch sử, cộng đồng.",
+          "Đáp trả bằng lời xúc phạm."
+        ],
+        correct: 1
+      },
+      {
+        question: "Video về lễ hội địa phương đưa tin gây sốc nhưng không dẫn nguồn, đang được chia sẻ rộng rãi. Em nên làm gì?",
+        answers: [
+          "Chia sẻ kèm cảnh báo dù chưa kiểm chứng.",
+          "Tin video vì có nhiều lượt xem.",
+          "Đối chiếu nguồn chính thức, người am hiểu và cộng đồng; chỉ chia sẻ thông tin có căn cứ, nêu rõ điều chưa xác minh."
+        ],
+        correct: 2
+      }
+    ]
   },
   {
-    question: "Chợ nổi Cái Răng thuộc thành phố nào?",
-    answers: ["Cần Thơ", "Đà Nẵng", "Hải Phòng"],
-    correct: 0,
+    name: "Ô THƯỜNG 10 – BẢO TỒN VÀ LAN TỎA DI SẢN VĂN HÓA",
+    isQuan: false,
+    questions: [
+      {
+        question: "Ở làng nghề, bạn tự ý cầm sản phẩm trưng bày để chụp ảnh, khiến sản phẩm có nguy cơ rơi vỡ. Em nên làm gì?",
+        answers: [
+          "Đề nghị bạn đặt lại, xin lỗi nghệ nhân và hỏi trước khi cầm/chụp; giải thích sản phẩm gắn với công sức, tri thức nghề.",
+          "Cứ chụp xong rồi tính.",
+          "Mang sản phẩm đi nơi khác để có phông nền đẹp."
+        ],
+        correct: 0
+      },
+      {
+        question: "Nhóm muốn làm video quảng bá nghi lễ truyền thống ít người thực hành. Phương án có trách nhiệm nhất?",
+        answers: [
+          "Tự thay đổi nghi lễ cho hấp dẫn, không cần hỏi ai.",
+          "Trao đổi với người thực hành và cộng đồng chủ thể; tôn trọng phần cốt lõi, xin phép ghi hình và giới thiệu đúng bối cảnh.",
+          "Dàn dựng rồi giới thiệu là nghi thức nguyên bản."
+        ],
+        correct: 1
+      },
+      {
+        question: "Hai trang mạng đưa thông tin khác nhau về nguồn gốc di sản. Nhóm cần viết nội dung giới thiệu. Cách làm đáng tin cậy nhất?",
+        answers: [
+          "Chọn trang có hình ảnh đẹp hơn.",
+          "Chọn thông tin được chia sẻ nhiều hơn.",
+          "Đối chiếu tài liệu chính thống, nghiên cứu chuyên môn và ý kiến cộng đồng; ghi nhận điểm còn tranh luận, không khẳng định quá mức."
+        ],
+        correct: 2
+      }
+    ]
   },
+  {
+    name: "Ô QUAN 1 – TÌNH HUỐNG NÂNG CAO VỀ TRÁCH NHIỆM VĂN HÓA",
+    isQuan: true,
+    questions: [
+      {
+        question: "Du khách vô tình chạm vào hiện vật; nhóm học sinh quay video định đăng để chế giễu. Em xử lý thế nào?",
+        answers: [
+          "Nhắc du khách lịch sự về quy định; đề nghị nhóm không chế giễu, không phát tán video và báo người phụ trách nếu cần.",
+          "Đăng video để nhiều người biết.",
+          "Lớn tiếng chỉ trích du khách trước đám đông."
+        ],
+        correct: 0
+      },
+      {
+        question: "Trong buổi giao lưu, một bạn gọi phong tục dân tộc khác là 'kỳ lạ, lạc hậu'. Cách ứng xử phù hợp?",
+        answers: [
+          "Đồng tình cho xong chuyện.",
+          "Bình tĩnh đề nghị dùng ngôn ngữ tôn trọng; giải thích cần tìm hiểu phong tục trong bối cảnh lịch sử, cộng đồng.",
+          "Đáp trả bằng lời xúc phạm."
+        ],
+        correct: 1
+      },
+      {
+        question: "Video về lễ hội địa phương đưa tin gây sốc nhưng không dẫn nguồn, đang được chia sẻ rộng rãi. Em nên làm gì?",
+        answers: [
+          "Chia sẻ kèm cảnh báo dù chưa kiểm chứng.",
+          "Tin video vì có nhiều lượt xem.",
+          "Đối chiếu nguồn chính thức, người am hiểu và cộng đồng; chỉ chia sẻ thông tin có căn cứ, nêu rõ điều chưa xác minh."
+        ],
+        correct: 2
+      }
+    ]
+  },
+  {
+    name: "Ô QUAN 2 – TÌNH HUỐNG NÂNG CAO VỀ BẢO TỒN DI SẢN",
+    isQuan: true,
+    questions: [
+      {
+        question: "Ở làng nghề, bạn tự ý cầm sản phẩm trưng bày để chụp ảnh, khiến sản phẩm có nguy cơ rơi vỡ. Em nên làm gì?",
+        answers: [
+          "Đề nghị bạn đặt lại, xin lỗi nghệ nhân và hỏi trước khi cầm/chụp; giải thích sản phẩm gắn với công sức, tri thức nghề.",
+          "Cứ chụp xong rồi tính.",
+          "Mang sản phẩm đi nơi khác để có phông nền đẹp."
+        ],
+        correct: 0
+      },
+      {
+        question: "Nhóm muốn làm video quảng bá nghi lễ truyền thống ít người thực hành. Phương án có trách nhiệm nhất?",
+        answers: [
+          "Tự thay đổi nghi lễ cho hấp dẫn, không cần hỏi ai.",
+          "Trao đổi với người thực hành và cộng đồng chủ thể; tôn trọng phần cốt lõi, xin phép ghi hình và giới thiệu đúng bối cảnh.",
+          "Dàn dựng rồi giới thiệu là nghi thức nguyên bản."
+        ],
+        correct: 1
+      },
+      {
+        question: "Hai trang mạng đưa thông tin khác nhau về nguồn gốc di sản. Nhóm cần viết nội dung giới thiệu. Cách làm đáng tin cậy nhất?",
+        answers: [
+          "Chọn trang có hình ảnh đẹp hơn.",
+          "Chọn thông tin được chia sẻ nhiều hơn.",
+          "Đối chiếu tài liệu chính thống, nghiên cứu chuyên môn và ý kiến cộng đồng; ghi nhận điểm còn tranh luận, không khẳng định quá mức."
+        ],
+        correct: 2
+      }
+    ]
+  }
 ];
 
-const quanQuestions = [
-  {
-    question:
-      "Lễ hội Nghinh Ông Sông Đốc ở Cà Mau thường diễn ra vào thời gian nào?",
-    answers: [
-      "Ngày 14–16 tháng 2 âm lịch",
-      "Ngày 14–16 tháng 8 âm lịch",
-      "Ngày 22–27 tháng 4 âm lịch",
-    ],
-    correct: 0,
-  },
-  {
-    question: "Lễ hội Vía Bà Chúa Xứ Núi Sam được UNESCO ghi danh vào năm nào?",
-    answers: ["Năm 2016", "Năm 2021", "Năm 2024"],
-    correct: 2,
-  },
-];
-
 // ==========================================
-// TRẠNG THÁI GAME
+// TRANG THAI GAME
 // ==========================================
 
-// 0-9: ô nhỏ, 10-11: ô quan
 let board = Array(10).fill(5).concat([0, 0]);
 let completed = Array(12).fill(false);
-
+let roundNumber = 1;
+let roundScores = [null, null, null];
 let score = 0;
 let answeredCount = 0;
 let player = "Người chơi";
-
 let currentPit = null;
 let isSowing = false;
 let hasAnswered = false;
 let audioContext = null;
 
 // ==========================================
-// LẤY PHẦN TỬ
+// LAY PHAN TU HTML
 // ==========================================
 
 const welcome = document.getElementById("welcome");
 const game = document.getElementById("game");
 const result = document.getElementById("result");
-
 const questionPanel = document.getElementById("questionPanel");
 const questionType = document.getElementById("questionType");
 const questionPoint = document.getElementById("questionPoint");
@@ -112,9 +436,10 @@ const questionText = document.getElementById("questionText");
 const answersBox = document.getElementById("answers");
 const feedback = document.getElementById("feedback");
 const continueBtn = document.getElementById("continueBtn");
+const nextRoundBtn = document.getElementById("nextRoundBtn");
 
 // ==========================================
-// ÂM THANH
+// AM THANH
 // ==========================================
 
 function getAudio() {
@@ -141,7 +466,10 @@ function tone(frequency, duration, type = "sine") {
   oscillator.frequency.value = frequency;
 
   gain.gain.setValueAtTime(0.12, ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    ctx.currentTime + duration
+  );
 
   oscillator.connect(gain);
   gain.connect(ctx.destination);
@@ -192,7 +520,10 @@ function applause() {
     filter.frequency.value = 900;
 
     gain.gain.setValueAtTime(0.18, start);
-    gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      start + duration
+    );
 
     source.connect(filter);
     filter.connect(gain);
@@ -203,31 +534,37 @@ function applause() {
 }
 
 // ==========================================
-// TIỆN ÍCH
+// TIEN ICH
 // ==========================================
 
 function wait(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Chiều ngược kim đồng hồ: giảm chỉ số
+// Rải ngược chiều kim đồng hồ
 function nextPit(index) {
   return (index - 1 + 12) % 12;
 }
 
 function updateBoard() {
-  document.querySelectorAll("[data-pit]").forEach((button) => {
+  document.querySelectorAll("[data-pit]").forEach(button => {
     const index = Number(button.dataset.pit);
-    const count = board[index];
 
-    button.querySelector(".stones").textContent = `${count} quân`;
+    button.querySelector(".stones").textContent =
+      `${board[index]} quân`;
 
     button.classList.toggle("pit-done", completed[index]);
-    button.disabled = completed[index] || isSowing || hasAnswered;
+
+    button.disabled =
+      completed[index] || isSowing || hasAnswered;
   });
 
   document.getElementById("score").textContent = score;
-  document.getElementById("progress").textContent = `${answeredCount}/12`;
+  document.getElementById("progress").textContent =
+    `${answeredCount}/12`;
+
+  document.getElementById("roundEyebrow").textContent =
+    `VÁN ${roundNumber} / 3`;
 }
 
 function setStatus(message) {
@@ -235,7 +572,10 @@ function setStatus(message) {
 }
 
 function animatePit(index) {
-  const button = document.querySelector(`[data-pit="${index}"]`);
+  const button = document.querySelector(
+    `[data-pit="${index}"]`
+  );
+
   if (!button) return;
 
   button.classList.remove("sowing");
@@ -244,44 +584,62 @@ function animatePit(index) {
 }
 
 // ==========================================
-// BẮT ĐẦU GAME
+// BAT DAU / RESET MOT VAN
 // ==========================================
 
-document.getElementById("startBtn").addEventListener("click", () => {
-  getAudio();
-
-  player = document.getElementById("playerName").value.trim() || "Người chơi";
-
+function resetCurrentRound() {
   board = Array(10).fill(5).concat([0, 0]);
   completed = Array(12).fill(false);
 
+  // QUAN TRONG: reset diem khi bat dau van moi
   score = 0;
   answeredCount = 0;
+
   currentPit = null;
   isSowing = false;
   hasAnswered = false;
 
-  welcome.classList.add("hidden");
-  result.classList.add("hidden");
-  game.classList.remove("hidden");
   questionPanel.classList.add("hidden");
 
   updateBoard();
-  setStatus("Mời bạn chọn một ô để bắt đầu!");
+
+  setStatus(
+    `Mời bạn chọn một ô để bắt đầu VÁN ${roundNumber}!`
+  );
+}
+
+document.getElementById("startBtn").addEventListener("click", () => {
+  getAudio();
+
+  player =
+    document.getElementById("playerName").value.trim() ||
+    "Người chơi";
+
+  roundNumber = 1;
+
+  // Luu diem tung van rieng biet
+  roundScores = [null, null, null];
+
+  welcome.classList.add("hidden");
+  result.classList.add("hidden");
+  game.classList.remove("hidden");
+
+  resetCurrentRound();
   clickSound();
 });
 
 // ==========================================
-// CHỌN Ô VÀ BẮT ĐẦU RẢI QUÂN
+// CHON O VA RAI QUAN
 // ==========================================
 
-document.querySelectorAll("[data-pit]").forEach((button) => {
+document.querySelectorAll("[data-pit]").forEach(button => {
   button.addEventListener("click", async () => {
     const index = Number(button.dataset.pit);
 
-    if (isSowing || hasAnswered || completed[index]) return;
+    if (isSowing || hasAnswered || completed[index]) {
+      return;
+    }
 
-    // Ô đã rỗng vẫn có thể chọn để trả lời câu hỏi.
     currentPit = index;
 
     if (board[index] > 0) {
@@ -296,7 +654,7 @@ document.querySelectorAll("[data-pit]").forEach((button) => {
 });
 
 // ==========================================
-// LUẬT RẢI QUÂN A
+// LUAT RAI QUAN A
 // ==========================================
 
 async function sowFrom(startIndex) {
@@ -308,16 +666,15 @@ async function sowFrom(startIndex) {
 
   setStatus("🏮 Đang nhấc quân và bắt đầu rải...");
 
-  // Nhấc quân khỏi ô được chọn
   let hand = board[position];
+
   board[position] = 0;
-
   updateBoard();
-  animatePit(position);
 
+  animatePit(position);
   await wait(350);
 
-  // Rải từng quân, rồi nhặt ô tiếp theo nếu còn quân.
+  // Rai het quan dang cam
   while (hand > 0 && safetyCounter < 500) {
     position = nextPit(position);
 
@@ -332,13 +689,13 @@ async function sowFrom(startIndex) {
     await wait(180);
   }
 
-  // Hết quân trên tay: kiểm tra ô kế tiếp.
+  // Neu o tiep theo con quan thi nhat len va rai tiep
   while (safetyCounter < 500) {
     const next = nextPit(position);
 
-    // Nếu ô kế tiếp còn quân, nhấc lên và rải tiếp.
     if (board[next] > 0) {
       position = next;
+
       hand = board[position];
       board[position] = 0;
 
@@ -365,14 +722,13 @@ async function sowFrom(startIndex) {
       continue;
     }
 
-    // Nếu ô kế tiếp trống, kiểm tra ô sau nó.
     const target = nextPit(next);
 
-    if (board[target] > 0) {
-      setStatus("✨ Lượt rải đã kết thúc!");
-    } else {
-      setStatus("✨ Không còn quân ở các ô kế tiếp!");
-    }
+    setStatus(
+      board[target] > 0
+        ? "✨ Lượt rải đã kết thúc!"
+        : "✨ Không còn quân ở các ô kế tiếp!"
+    );
 
     break;
   }
@@ -384,20 +740,24 @@ async function sowFrom(startIndex) {
 }
 
 // ==========================================
-// HIỆN CÂU HỎI CỦA Ô ĐÃ CHỌN
+// MO CAU HOI THEO SO VAN
 // ==========================================
 
 function openQuestion(index) {
   hasAnswered = false;
 
-  const isQuan = index >= 10;
-  const question = isQuan ? quanQuestions[index - 10] : normalQuestions[index];
+  // VAN 1 = questions[0]
+  // VAN 2 = questions[1]
+  // VAN 3 = questions[2]
+  const questionIndex = roundNumber - 1;
 
-  const points = isQuan ? 20 : 8;
+  const pit = pitData[index];
+  const question = pit.questions[questionIndex];
 
-  questionType.textContent = isQuan
-    ? `🔴 CÂU HỎI Ô QUAN ${index - 9}`
-    : `🟤 CÂU HỎI Ô ${index + 1}`;
+  const points = pit.isQuan ? 20 : 8;
+
+  questionType.textContent =
+    `${pit.isQuan ? "🔴" : "🟤"} ${pit.name} - CÂU ${roundNumber}/3`;
 
   questionPoint.textContent = `${points} ĐIỂM`;
   questionText.textContent = question.question;
@@ -405,12 +765,16 @@ function openQuestion(index) {
   answersBox.innerHTML = "";
   feedback.textContent = "";
   feedback.className = "feedback";
+
   continueBtn.classList.add("hidden");
 
   question.answers.forEach((answer, answerIndex) => {
     const button = document.createElement("button");
+
     button.className = "answer-btn";
-    button.textContent = `${String.fromCharCode(65 + answerIndex)}. ${answer}`;
+
+    button.textContent =
+      `${String.fromCharCode(65 + answerIndex)}. ${answer}`;
 
     button.addEventListener("click", () => {
       chooseAnswer(answerIndex, question, points);
@@ -420,13 +784,17 @@ function openQuestion(index) {
   });
 
   questionPanel.classList.remove("hidden");
-  questionPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  questionPanel.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
 
   setStatus("📚 Hãy chọn đáp án đúng!");
 }
 
 // ==========================================
-// TRẢ LỜI
+// TRA LOI VA TINH DIEM
 // ==========================================
 
 function chooseAnswer(selectedIndex, question, points) {
@@ -435,6 +803,7 @@ function chooseAnswer(selectedIndex, question, points) {
   hasAnswered = true;
 
   const isCorrect = selectedIndex === question.correct;
+
   const buttons = document.querySelectorAll(".answer-btn");
 
   buttons.forEach((button, index) => {
@@ -451,11 +820,16 @@ function chooseAnswer(selectedIndex, question, points) {
 
   if (isCorrect) {
     score += points;
-    feedback.textContent = `🎉 Chính xác! Bạn nhận được ${points} điểm.`;
+
+    feedback.textContent =
+      `🎉 Chính xác! Bạn nhận được ${points} điểm trong VÁN ${roundNumber}.`;
+
     feedback.classList.add("good");
     correctSound();
   } else {
-    feedback.textContent = "❌ Chưa chính xác! Câu này được 0 điểm.";
+    feedback.textContent =
+      "❌ Chưa chính xác! Câu này được 0 điểm.";
+
     feedback.classList.add("bad");
     wrongSound();
   }
@@ -464,11 +838,12 @@ function chooseAnswer(selectedIndex, question, points) {
   answeredCount++;
 
   updateBoard();
+
   continueBtn.classList.remove("hidden");
 }
 
 // ==========================================
-// TIẾP TỤC CHƠI
+// TIEP TUC SAU KHI TRA LOI
 // ==========================================
 
 continueBtn.addEventListener("click", () => {
@@ -480,57 +855,151 @@ continueBtn.addEventListener("click", () => {
   updateBoard();
 
   if (answeredCount === 12) {
-    showResult();
+    // Luu diem cua rieng van hien tai
+    roundScores[roundNumber - 1] = score;
+
+    showRoundResult();
   } else {
-    setStatus("Mời bạn chọn một ô chưa chơi!");
+    setStatus(
+      `Mời bạn chọn một ô chưa chơi ở VÁN ${roundNumber}!`
+    );
   }
 
   clickSound();
 });
 
 // ==========================================
-// KẾT QUẢ
+// HIEN LICH SU DIEM TUNG VAN
+// KHONG CONG DIEM CAC VAN
 // ==========================================
 
-function showResult() {
+function renderRoundHistory() {
+  const history = document.getElementById("roundHistory");
+
+  history.innerHTML = "";
+
+  roundScores.forEach((roundScore, index) => {
+    const row = document.createElement("div");
+    row.className = "round-row";
+
+    const label = document.createElement("span");
+    label.textContent = `Ván ${index + 1}`;
+
+    const value = document.createElement("strong");
+
+    if (roundScore === null) {
+      value.textContent = "Chưa chơi";
+    } else {
+      value.textContent = `${roundScore} / 120 điểm`;
+
+      const status = document.createElement("span");
+
+      status.className =
+        roundScore >= 80 ? "passed" : "not-passed";
+
+      status.textContent =
+        roundScore >= 80
+          ? "  • Đạt mốc 80"
+          : "  • Chưa đạt mốc 80";
+
+      value.appendChild(status);
+    }
+
+    row.append(label, value);
+    history.appendChild(row);
+  });
+}
+
+// ==========================================
+// KET QUA RIENG CUA MOT VAN
+// ==========================================
+
+function showRoundResult() {
   game.classList.add("hidden");
   result.classList.remove("hidden");
 
-  document.getElementById("resultPlayer").textContent = `Người chơi: ${player}`;
+  const passed = score >= 80;
+
+  document.getElementById("resultRoundLabel").textContent =
+    `KẾT QUẢ VÁN ${roundNumber} / 3`;
+
+  document.getElementById("resultPlayer").textContent =
+    `Người chơi: ${player}`;
+
+  // Chi hien diem cua van vua hoan thanh
   document.getElementById("finalScore").textContent = score;
 
   const title = document.getElementById("resultTitle");
   const icon = document.getElementById("resultIcon");
   const message = document.getElementById("resultMessage");
-  const certificateArea = document.getElementById("certificateArea");
+  const certificateArea =
+    document.getElementById("certificateArea");
 
-  if (score >= 80) {
+  if (passed) {
     title.textContent = "XUẤT SẮC!";
     icon.textContent = "🏆";
+
     message.textContent =
-      "Chúc mừng bạn đã đạt từ 80 điểm trở lên! Bạn xứng đáng nhận giấy chứng nhận.";
+      `Bạn đạt ${score}/120 điểm ở VÁN ${roundNumber}, đủ điều kiện nhận giấy chứng nhận của riêng ván này!`;
 
     certificateArea.classList.remove("hidden");
 
-    document.getElementById("certificateName").textContent = player;
+    document.getElementById("certificateName").textContent =
+      player;
+
     document.getElementById("certificateScore").textContent =
-      `${score} / 120 ĐIỂM`;
+      `VÁN ${roundNumber}: ${score} / 120 ĐIỂM`;
 
     applause();
   } else {
     title.textContent = "CỐ GẮNG HƠN NHÉ!";
     icon.textContent = "🌱";
+
     message.textContent =
-      "Bạn đã hoàn thành đủ 12 câu hỏi. Hãy tiếp tục khám phá những nét đẹp văn hóa Việt Nam nhé!";
+      `Bạn hoàn thành VÁN ${roundNumber} với ${score}/120 điểm. Mốc nhận giấy chứng nhận là 80 điểm trong chính ván này.`;
 
     certificateArea.classList.add("hidden");
   }
 
-  result.scrollIntoView({ behavior: "smooth" });
+  renderRoundHistory();
+
+  if (roundNumber < 3) {
+    nextRoundBtn.classList.remove("hidden");
+
+    nextRoundBtn.textContent =
+      `➡️ SANG VÁN ${roundNumber + 1}`;
+  } else {
+    nextRoundBtn.classList.add("hidden");
+
+    message.textContent +=
+      " Bạn đã hoàn thành cả 3 ván. Điểm từng ván được lưu riêng, không cộng lại.";
+  }
+
+  result.scrollIntoView({
+    behavior: "smooth"
+  });
 }
 
 // ==========================================
-// IN GIẤY CHỨNG NHẬN
+// SANG VAN TIEP THEO
+// ==========================================
+
+nextRoundBtn.addEventListener("click", () => {
+  if (roundNumber >= 3) return;
+
+  roundNumber++;
+
+  result.classList.add("hidden");
+  game.classList.remove("hidden");
+
+  // Reset bang va diem cho van moi
+  resetCurrentRound();
+
+  clickSound();
+});
+
+// ==========================================
+// IN GIAY CHUNG NHAN
 // ==========================================
 
 document.getElementById("printBtn").addEventListener("click", () => {
@@ -538,15 +1007,23 @@ document.getElementById("printBtn").addEventListener("click", () => {
 });
 
 // ==========================================
-// CHƠI LẠI
+// CHOI LAI TU DAU
 // ==========================================
 
 document.getElementById("restartBtn").addEventListener("click", () => {
   result.classList.add("hidden");
+  game.classList.add("hidden");
   welcome.classList.remove("hidden");
 
   document.getElementById("playerName").value = "";
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  roundNumber = 1;
+  roundScores = [null, null, null];
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
   clickSound();
 });
