@@ -22,7 +22,8 @@
         <div class="info">
           <p>🟤 10 ô nhỏ: <b>8 điểm/câu</b></p>
           <p>🔴 2 ô quan: <b>20 điểm/câu</b></p>
-          <p>🏆 Tổng điểm: <b>120 điểm</b></p>
+          <p>🎮 Số ván chơi: <b>03 ván</b></p>
+          <p>🏆 Mỗi ván tối đa: <b>120 điểm</b></p>
         </div>
 
         <input
@@ -37,15 +38,15 @@
 
     <main id="game" class="screen hidden">
       <section class="heading">
-        <p class="eyebrow">THỬ THÁCH KIẾN THỨC</p>
+        <p class="eyebrow" id="roundEyebrow">VÁN 1 / 3</p>
         <h1>Ô ĂN QUAN</h1>
         <p>Chọn một ô bất kỳ để bắt đầu rải quân!</p>
       </section>
 
       <section class="scoreboard">
-        <div><span>⭐ ĐIỂM</span><b id="score">0</b></div>
+        <div><span>⭐ ĐIỂM VÁN NÀY</span><b id="score">0</b></div>
         <div><span>📝 ĐÃ CHƠI</span><b id="progress">0/12</b></div>
-        <div><span>🏆 TỐI ĐA</span><b>120</b></div>
+        <div><span>🏆 TỐI ĐA VÁN NÀY</span><b>120</b></div>
       </section>
 
       <section class="board-wrap">
@@ -110,6 +111,9 @@
         <p class="board-hint">
           ✨ Quân sẽ được rải lần lượt theo chiều ngược kim đồng hồ.
         </p>
+        <p class="round-reminder">
+          Mỗi ô có 3 câu: ván 1 dùng câu 1, ván 2 dùng câu 2, ván 3 dùng câu 3.
+        </p>
         <p id="gameStatus" class="status">Mời bạn chọn một ô để bắt đầu!</p>
       </section>
 
@@ -128,13 +132,18 @@
     <main id="result" class="screen hidden">
       <section class="result-card">
         <div class="big-icon" id="resultIcon">🏆</div>
-        <p class="eyebrow">KẾT THÚC TRÒ CHƠI</p>
+        <p class="eyebrow" id="resultRoundLabel">KẾT QUẢ VÁN 1</p>
         <h1 id="resultTitle">KẾT QUẢ</h1>
         <p id="resultPlayer"></p>
         <div class="final-score">
           <b id="finalScore">0</b><span>/ 120 điểm</span>
         </div>
         <p id="resultMessage"></p>
+        <section class="round-history">
+          <h2>KẾT QUẢ TỪNG VÁN</h2>
+          <div id="roundHistory"></div>
+          <p>Điểm mỗi ván được xét độc lập, không cộng 3 ván lại.</p>
+        </section>
 
         <div id="certificateArea" class="hidden">
           <div id="certificate" class="certificate">
@@ -154,7 +163,10 @@
           <button id="printBtn" class="main-btn">🖨️ IN GIẤY CHỨNG NHẬN</button>
         </div>
 
-        <button id="restartBtn" class="main-btn">🔄 CHƠI LẠI</button>
+        <button id="nextRoundBtn" class="main-btn hidden">
+          ➡️ SANG VÁN TIẾP THEO
+        </button>
+        <button id="restartBtn" class="main-btn">🔄 CHƠI LẠI TỪ VÁN 1</button>
       </section>
     </main>
 
